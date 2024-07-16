@@ -36,13 +36,13 @@ class loadCosmosisMCSamples:
         if self.metadata == None:
             self.metadata = self.get_metadata(self)
         colnames = self.metadata[0].split("\t")
-        self.colnames = colnames
+        self.colnames = np.array(colnames)
     
     def get_indices(self):
         index_log = np.where(np.array(self.colnames) == "post")[0]
         index_all = np.arange(len(self.colnames))
         index_weight = np.where(np.array(self.colnames) == "weight\n")[0]
-        index_samples = list(np.array(np.delete(index_all,[index_log,index_weight]).astype(int)))
+        index_samples = np.array(np.delete(index_all,[index_log,index_weight]).astype(int))
         return index_log,index_weight,index_samples
     
     def get_samples(self):
@@ -54,12 +54,8 @@ class loadCosmosisMCSamples:
 
     def get_sampler_type(self):
         for i in self.metadata:
-            if "sampler" in i:
-                sampler = re.sub("sampler = ","",i)
-                if sampler == "polychord":
-                    self.sampler_type = "nested"
-    
-
+            if "polychord" in i:
+                self.sampler_type = "nested"
 
     def get_weights(self):
         self.weights = self.chains[:,self.index_weight]
@@ -68,7 +64,7 @@ class loadCosmosisMCSamples:
         self.log = self.chains[:,self.index_log]
         
     def get_paramnames(self):
-        print(type(self.index_samples[0]))
+        print(self.index_samples)
         self.paramnames = self.colnames[self.index_samples]
     
     def get_labels(self):
