@@ -10,7 +10,7 @@ class loadCosmosisMCSamples:
     #package everything into a getdist MCSamples object
     def __init__(self,filename):
         if filename == None:
-            return "chainplotter needs a filename"
+            raise ValueError("chainplotter needs a filename")
         self.chainfile = filename+".txt"
         self.get_metadata()
         self.get_columnnames()
@@ -21,6 +21,7 @@ class loadCosmosisMCSamples:
         self.get_samples()
         self.get_loglikes()
         self.get_weights()
+        self.get_labels()
 
 
     def get_metadata(self):
@@ -64,22 +65,26 @@ class loadCosmosisMCSamples:
         self.log = self.chains[:,self.index_log]
         
     def get_paramnames(self):
-        print(self.index_samples)
         self.paramnames = self.colnames[self.index_samples]
     
     def get_labels(self):
-        return 0
+        labels = []
+        for i,p in enumerate(self.paramnames):
+            p_new = re.sub(r".*--","",p)
+            labels.append(p_new)
+        self.labels = labels
+        return self.labels
 
     def get_ranges(self):
         return 0
     
     def make_sampler(self):
         self.mc_samples = MCSamples(samples=self.samples, weights=self.weights,
-                           loglikes=-2.*loglike,
-                           sampler=sampler, names=param_names,
+                           loglikes=-2.*self.log,
+                           sampler=self.sampler_type, names=self.paramnames,
                            labels=param_labels, ranges=ranges,
-                           ignore_rows=0, name_tag=name_tag,
-                           settings=settings)
+                           ignore_rows=0)
+                           #settings=settings)
         return 0
 
 
