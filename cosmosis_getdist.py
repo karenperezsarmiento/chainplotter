@@ -76,7 +76,26 @@ class loadCosmosisMCSamples:
         return self.labels
 
     def get_ranges(self):
-        return 0
+        for i,s in enumerate(self.metadata):
+            if "START_OF_VALUES_INI" in s:
+                start_of_ranges = i
+            if "END_OF_VALUES_INI" in s:
+                end_of_ranges = i
+        ranges_chunk = self.metadata[start_of_ranges+1:end_of_ranges]
+        ranges = {}
+
+        for n in self.labels:
+            for m in ranges_chunk:
+                if n in m:
+                    to_delete = n+" = "
+                    numbers = re.sub(to_delete,"",m)
+                    numbers = numbers.split()
+                    numbers = np.array(numbers).astype(float)
+                    print(numbers)
+        
+            
+
+        return ranges
     
     def make_sampler(self):
         self.mc_samples = MCSamples(samples=self.samples, weights=self.weights,
