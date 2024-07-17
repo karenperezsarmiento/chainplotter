@@ -5,10 +5,29 @@ from getdist import loadMCSamples
 import re
 
 class loadCosmosisMCSamples:
-    #load filename
-    #do some stuff to the filename like the getdist.loadMCSamples function does
-    #package everything into a getdist MCSamples object
+    """Loads cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist.
+
+    Attributes:
+        chainfile (str): File name of cosmosis output chains.
+        metadata (:obj:`list` of :obj:`str`): Metadata from cosmosis file.
+        columnnames (:obj:`np.array` of :obj:`str`): List of columns names (first line in cosmosis metadata)
+        sampler_type (str): Sampler used to generate chains. Currently only supports nested sampling.
+        chains (:obj:`np.array`): Array with the chains from cosmosis file
+        indices (:obj:`np.array`): Indices of the columns that correspond to the loglikelihood, weights and sampled variables.
+        paramnames (:obj:`np.array of :obj:`str`): Array of the parameter names.
+        samples (:obj:`np.array`): Array with the sampled parameters from the chains.
+        loglikes (:obj:`np.array`): Array with the log likelihood from the chains.
+        weights (:obj:`np.array`): Array with the weights.
+        labels (:obj:`list`): List of the labels for the parameters.
+        ranges (:obj: `dict`): Dictionary for each parameters and its corresponding minimum and maximum values.
+    """
     def __init__(self,filename):
+        """ Initializes the loadCosmosisMCSamples class
+
+        Args:
+            filename (str): File name of cosmosis chains (must not contain`.txt`).
+
+        """
         if filename == None:
             raise ValueError("chainplotter needs a filename")
         self.chainfile = filename+".txt"
@@ -22,6 +41,7 @@ class loadCosmosisMCSamples:
         self.get_loglikes()
         self.get_weights()
         self.get_labels()
+        self.get_ranges()
 
 
     def get_metadata(self):
@@ -104,7 +124,7 @@ class loadCosmosisMCSamples:
                            labels=param_labels, ranges=ranges,
                            ignore_rows=0)
                            #settings=settings)
-        return 0
+        return 
 
 
     #samples = MCSamples
