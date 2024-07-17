@@ -93,7 +93,22 @@ class loadCosmosisMCSamples:
             p_new = re.sub(r".*--","",p)
             labels.append(p_new)
         self.labels = labels
-        return self.labels
+        categories = []
+        for i,p in enumerate(self.paramnames):
+            p_new = re.sub(r"--.*","",p)
+            categories.append(p_new)
+        self.categories = categories
+
+        chi2_ind = self.labels.index("2PT_CHI2")
+        self.labels.pop(chi2_ind)
+        self.categories.pop(chi2_ind)
+        prior_ind = self.labels.index("prior")
+        self.labels.pop(prior_ind)
+        self.categories.pop(prior_ind)
+        like_ind = self.labels.index("like")
+        self.labels.pop(like_ind)
+        self.categories.pop(like_ind)
+        return self.labels,self.categories
 
     def get_ranges(self):
         for i,s in enumerate(self.metadata):
@@ -102,20 +117,41 @@ class loadCosmosisMCSamples:
             if "END_OF_VALUES_INI" in s:
                 end_of_ranges = i
         ranges_chunk = self.metadata[start_of_ranges+1:end_of_ranges]
-        ranges = {}
+        unique_cat = np.unique(np.array(list(map(str.lower,self.categories))))
+        cat_array = np.array(self.categories)
+        lab_array = np.array(self.labels)
+        cat_index = []
+        for i,s in enumerate(ranges_chunk):
+            for j in unique_cat:
+                if j in s:
+                    id = ranges_chunk.index(s)
+                    cat_index.append(id)
+        ranges_dict = {}
+        for i,n in enumerate(cat_index[:-1]):
+            cat_chunk = ranges_chunk[cat_index[i]:cat_index[i+1]]
+            this_cat = unique_cat[i]
 
-        for n in self.labels:
-            for m in ranges_chunk:
-                if n in m:
-                    to_delete = n+" = "
-                    numbers = re.sub(to_delete,"",m)
-                    numbers = numbers.split()
-                    numbers = np.array(numbers).astype(float)
-                    print(numbers)
-        
-            
-
-        return ranges
+            these_labels = lab_array[np.array(cat_array)==this_cat]
+            for c,j in enumerate(cat_chunk):
+                for lab in these_labels:
+                    if lab in j:
+                        to_delete = lab+" = "
+                        numbers = re.sub(to_delete,"", j)
+                        numbers = numbers.split()
+                        numbers = np.array(numbers).astype(float)
+                        if len(numbers)==1:
+                            min_val = None
+                            max_val = no=np.max(numbers)
+                        elif len(numbers)==3:
+                            min_val = np.min(numbers)
+                            max_val = np.max(numbers)
+                        else:
+                            min_val = None
+                            max_val = None
+                        key_name = this_cat+"__"+lab
+                        ranges_dict[key_name] = {"min": min_val, "max": max_val}
+        self.ranges = ranges_dict
+        return self.ranges
     
     def make_sampler(self):
         self.mc_samples = MCSamples(samples=self.samples, weights=self.weights,
