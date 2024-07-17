@@ -9,3 +9,9 @@ dynamic = ["dependencies"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools]
+packages = ["chainplotter"]
+
+[tool.setuptools.package-dir]
+"package_name" = "./chainplotter/cosmosis_getdist.py"
