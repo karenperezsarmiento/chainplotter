@@ -10,6 +10,8 @@ Welcome to chainplotter's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   cosmosis_getdist.rst
+
 
 
 Indices and tables

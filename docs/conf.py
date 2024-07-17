@@ -8,7 +8,7 @@
 
 import os
 import sys
-sys.path.insert(0,os.path.abspath('..'))
+sys.path.insert(0,os.path.abspath('../chainplotter/'))
 
 project = 'chainplotter'
 copyright = '2024, Zoe Juneau, Karen Perez Sarmiento'
