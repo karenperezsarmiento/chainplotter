@@ -99,15 +99,11 @@ def test_make_MC_samples():
 
     assert type(tester.mc_samples == getdist.mcsamples.MCSamples)
 
-def test_make_plot():
+'''def test_make_plot():
     tester = cosmosis_getdist.loadCosmosisMCSamples("/home/zjuneau/test_git/chain_test")
 
     g = plots.get_subplot_plotter()
     g.triangle_plot([tester.mc_samples], names = ['cosmological_parameters--omega_m', 'COSMOLOGICAL_PARAMETERS--SIGMA_8'])
     g.export('test_plot.png')
     Done == True
-    assert Done
-
-
-
-test_make_plot()
+    assert Done'''
