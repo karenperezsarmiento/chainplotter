@@ -5,8 +5,7 @@ Cosmosis chains are incompatible with plotting tool getdist. Chainplotter takes 
 # How to Install: 
 
 ```
-pip install chainplotter 
-pip install -r requirements.txt
+pip install chainplotter
 
 ```
 
@@ -16,7 +15,7 @@ Input cosmosis chain file into loadCosmosisMCSamples(filename) (Note: Must be do
 loadCosmosisMCSamples.mc_samples is an object of type getdist.MCSamples that then can be plotted with getdist.
 
 ```
-import cosmosis_getdist
+from chainplotter import cosmosis_getdist
 from getdist import plots
 
 samples = cosmosis_getdist.loadCosmosisMCSamples("../example_data/chain_3x2pt_wcdm_SR_maglim")
