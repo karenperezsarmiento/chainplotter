@@ -42,6 +42,7 @@ class loadCosmosisMCSamples:
         self.get_weights()
         self.get_labels()
         self.get_ranges()
+        self.make_MC_samples()
 
 
     def get_metadata(self):
@@ -79,88 +80,102 @@ class loadCosmosisMCSamples:
                 self.sampler_type = "nested"
 
     def get_weights(self):
-        self.weights = self.chains[:,self.index_weight]
+        self.weights = np.array(self.chains[:,self.index_weight]).flatten()
     
     def get_loglikes(self):
-        self.log = self.chains[:,self.index_log]
+        self.log = np.array(self.chains[:,self.index_log]).flatten()
         
     def get_paramnames(self):
         self.paramnames = self.colnames[self.index_samples]
     
     def get_labels(self):
         labels = []
+        names = []
+        param_cat_dict = {}
         for i,p in enumerate(self.paramnames):
+            c_new = str.lower(re.sub(r"--.*","",p))
             p_new = re.sub(r".*--","",p)
-            labels.append(p_new)
+            if "prior" in p_new:
+                labels.append(p_new)
+                names.append(p)
+            elif "like" in p_new:
+                labels.append(p_new)
+                names.append(p)
+            else:
+                labels.append(p_new)
+                names.append(p)
+                if c_new in param_cat_dict.keys():
+                    param_cat_dict[c_new].append(p_new)
+                else:
+                    param_cat_dict[c_new] = []
+                    param_cat_dict[c_new].append(p_new)
         self.labels = labels
-        categories = []
-        for i,p in enumerate(self.paramnames):
-            p_new = re.sub(r"--.*","",p)
-            categories.append(p_new)
-        self.categories = categories
+        self.param_cat_dict = param_cat_dict
+        self.names = names 
+        return self.labels,self.param_cat_dict,self.names 
 
-        chi2_ind = self.labels.index("2PT_CHI2")
-        self.labels.pop(chi2_ind)
-        self.categories.pop(chi2_ind)
-        prior_ind = self.labels.index("prior")
-        self.labels.pop(prior_ind)
-        self.categories.pop(prior_ind)
-        like_ind = self.labels.index("like")
-        self.labels.pop(like_ind)
-        self.categories.pop(like_ind)
-        return self.labels,self.categories
-
-    def get_ranges(self):
+    def _get_ranges_chunk(self):
         for i,s in enumerate(self.metadata):
             if "START_OF_VALUES_INI" in s:
                 start_of_ranges = i
             if "END_OF_VALUES_INI" in s:
                 end_of_ranges = i
         ranges_chunk = self.metadata[start_of_ranges+1:end_of_ranges]
-        unique_cat = np.unique(np.array(list(map(str.lower,self.categories))))
-        cat_array = np.array(self.categories)
-        lab_array = np.array(self.labels)
-        cat_index = []
-        for i,s in enumerate(ranges_chunk):
-            for j in unique_cat:
-                if j in s:
-                    id = ranges_chunk.index(s)
-                    cat_index.append(id)
-        ranges_dict = {}
-        for i,n in enumerate(cat_index[:-1]):
-            cat_chunk = ranges_chunk[cat_index[i]:cat_index[i+1]]
-            this_cat = unique_cat[i]
+        return ranges_chunk
+    
+    def _get_cat_chunks(self):
+        ranges_chunk = self._get_ranges_chunk()
+        unique_cats = self.param_cat_dict.keys()
+        cat_sec = []
+        ind_chunks = []
+        for i,r in enumerate(ranges_chunk):
+            for c in unique_cats:
+                if c in r:
+                    ind_chunks.append(i)
+                    cat_sec.append(c)
+        ind_chunks.append(len(ranges_chunk)-1)
+        cat_chunks = {}
+        for i,s in enumerate(cat_sec):
+            cat_chunks[s] = ranges_chunk[ind_chunks[i]:ind_chunks[i+1]-1]
+        return cat_chunks
 
-            these_labels = lab_array[np.array(cat_array)==this_cat]
-            for c,j in enumerate(cat_chunk):
-                for lab in these_labels:
-                    if lab in j:
-                        to_delete = lab+" = "
-                        numbers = re.sub(to_delete,"", j)
-                        numbers = numbers.split()
-                        numbers = np.array(numbers).astype(float)
-                        if len(numbers)==1:
-                            min_val = None
-                            max_val = no=np.max(numbers)
-                        elif len(numbers)==3:
-                            min_val = np.min(numbers)
-                            max_val = np.max(numbers)
-                        else:
-                            min_val = None
-                            max_val = None
-                        key_name = this_cat+"__"+lab
-                        ranges_dict[key_name] = {"min": min_val, "max": max_val}
+    def get_ranges(self):
+        cat_chunks = self._get_cat_chunks()
+        ranges_dict = {}
+        for i in cat_chunks.keys():
+            this_chunk = cat_chunks[i]
+            these_labels = self.param_cat_dict[i]
+            for l in these_labels:
+                name = self.names[self.labels.index(l)]
+                res = list(filter(lambda x: l in x,this_chunk))
+                if len(res)>0:
+                    to_delete = l+" = "
+                    numbers = re.sub(to_delete,"", res[0])
+                    numbers = numbers.split()
+                    numbers = np.array(numbers).astype(float)
+                    if len(numbers)==1:
+                        min_val = None
+                        max_val = np.max(numbers)
+                    elif len(numbers)==3:
+                        min_val = np.min(numbers)
+                        max_val = np.max(numbers)
+                    ranges_dict[name] = [min_val,max_val]
+                else:
+                    ranges_dict[name] = [None,None]
+            for x in self.names:
+                if x not in ranges_dict.keys():
+                    ranges_dict[x] = [None,None]
         self.ranges = ranges_dict
         return self.ranges
-    
-    def make_sampler(self):
+
+    def make_MC_samples(self):
         self.mc_samples = MCSamples(samples=self.samples, weights=self.weights,
                            loglikes=-2.*self.log,
                            sampler=self.sampler_type, names=self.paramnames,
-                           labels=param_labels, ranges=ranges,
+                           ranges=self.ranges, labels=self.labels,
                            ignore_rows=0)
                            #settings=settings)
-        return 
+        return self.mc_samples
 
 
     #samples = MCSamples
