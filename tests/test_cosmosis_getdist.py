@@ -17,7 +17,7 @@ def test_get_columnnames():
     tester = cosmosis_getdist.loadCosmosisMCSamples("../example_data/chain_3x2pt_wcdm_SR_maglim")
     expected_colnames = ['cosmological_parameters--omega_m',	'cosmological_parameters--h0',	'cosmological_parameters--omega_b',	'cosmological_parameters--n_s',	'cosmological_parameters--a_s',	'cosmological_parameters--omnuh2',	'cosmological_parameters--w',	'shear_calibration_parameters--m1',	'shear_calibration_parameters--m2',	'shear_calibration_parameters--m3',	'shear_calibration_parameters--m4',	'wl_photoz_errors--bias_1',	'wl_photoz_errors--bias_2',	'wl_photoz_errors--bias_3',	'wl_photoz_errors--bias_4',	'lens_photoz_errors--bias_1',	'lens_photoz_errors--bias_2',	'lens_photoz_errors--bias_3',	'lens_photoz_errors--bias_4',	'lens_photoz_errors--width_1',	'lens_photoz_errors--width_2',	'lens_photoz_errors--width_3',	'lens_photoz_errors--width_4',	'bias_lens--b1',	'bias_lens--b2',	'bias_lens--b3',	'bias_lens--b4',	'intrinsic_alignment_parameters--a1',	'intrinsic_alignment_parameters--a2',	'intrinsic_alignment_parameters--alpha1',	'intrinsic_alignment_parameters--alpha2',	'intrinsic_alignment_parameters--bias_ta',	'COSMOLOGICAL_PARAMETERS--SIGMA_8',	'COSMOLOGICAL_PARAMETERS--SIGMA_12',	'DATA_VECTOR--2PT_CHI2',	'prior',	'like',	'post',	'weight\n']
     expected_colnames=np.array(expected_colnames)
-    print(tester.colnames)
+    
     assert np.all(tester.colnames == expected_colnames)
 
 def test_get_indices():
@@ -100,3 +100,20 @@ def test_make_MC_samples():
     g.export('test_plot.png')
     Done == True
     assert Done'''
+
+test_get_metadata()
+test_get_columnnames()
+test_get_indices()
+test_get_samples()
+test_get_chains()
+test_get_weights()
+test_get_loglikes()
+test_lengths()
+test_get_paramnames()
+test_get_labels()
+test_get_ranges_chunk()
+test_get_cat_chunks()
+test_get_ranges()
+test_make_MC_samples()
+
+print('DONE WITH TESTS')
