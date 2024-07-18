@@ -46,7 +46,7 @@ class loadCosmosisMCSamples:
 
 
     def get_metadata(self):
-         """ Opens user inputted file and removes lines starting with '#', returning each line as an element in a list.
+        """ Opens user inputted file and removes lines starting with '#', returning each line as an element in a list.
 
         """
         metadata = []
@@ -68,7 +68,7 @@ class loadCosmosisMCSamples:
         self.colnames = np.array(colnames)
     
     def get_indices(self):
-         """ Locates the index of "post" and "weight" elements in the column names array in order to delete them from the array.
+        """ Locates the index of "post" and "weight" elements in the column names array in order to delete them from the array.
         
         """
         index_log = np.where(np.array(self.colnames) == "post")[0]

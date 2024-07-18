@@ -1,2 +1,2 @@
 numpy
-getdisk==1.5.1
+getdist==1.5.1
