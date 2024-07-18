@@ -46,6 +46,9 @@ class loadCosmosisMCSamples:
 
 
     def get_metadata(self):
+         """ Opens user inputted file and removes lines starting with '#', returning each line as an element in a list.
+
+        """
         metadata = []
         with open(self.chainfile, 'r') as chainfile:
             for line in chainfile:
@@ -55,12 +58,19 @@ class loadCosmosisMCSamples:
         self.metadata = metadata   
 
     def get_columnnames(self):
+        """ Takes the first element in the metadata list, containing the column names. 
+            Then, the parameters are split by tabs, returning an array of the column names.
+
+        """
         if self.metadata == None:
             self.metadata = self.get_metadata(self)
         colnames = self.metadata[0].split("\t")
         self.colnames = np.array(colnames)
     
     def get_indices(self):
+         """ Locates the index of "post" and "weight" elements in the column names array in order to delete them from the array.
+        
+        """
         index_log = np.where(np.array(self.colnames) == "post")[0]
         index_all = np.arange(len(self.colnames))
         index_weight = np.where(np.array(self.colnames) == "weight\n")[0]
@@ -89,6 +99,11 @@ class loadCosmosisMCSamples:
         self.paramnames = self.colnames[self.index_samples]
     
     def get_labels(self):
+        """ Obtains labels and categories of variables from the parameter names list, 
+        creating lists for the labels and categories themselves. Unnecessary variables 
+        are also removed from both.
+        
+        """
         labels = []
         names = []
         param_cat_dict = {}
