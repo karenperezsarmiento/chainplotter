@@ -23,4 +23,5 @@ g = plots.get_subplot_plotter()
 g.triangle_plot(samples.mc_samples)
 
 ```
-
+See detailed documentation here:
+https://chainplotter.readthedocs.io/en/latest/
