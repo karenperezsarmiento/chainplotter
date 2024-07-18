@@ -13,7 +13,7 @@ sys.path.insert(0,os.path.abspath('../chainplotter/'))
 project = 'chainplotter'
 copyright = '2024, Zoe Juneau, Karen Perez Sarmiento'
 author = 'Zoe Juneau, Karen Perez Sarmiento'
-release = 'v0.1.1'
+release = 'v1.0.0'
 root_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
