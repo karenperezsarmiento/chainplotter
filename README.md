@@ -4,6 +4,7 @@
 [![Rectangular badge for the documentation at ReadTheDocs](https://img.shields.io/readthedocs/chainplotter/latest
 )](https://chainplotter.readthedocs.io/en/latest/)
 [![Rectangular badge for the pypy installation site](https://img.shields.io/pypi/v/chainplotter)](https://pypi.org/project/chainplotter/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Cosmosis chains are incompatible with the plotting tool getdist. Chainplotter takes cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist. Chainplotter currently may only work with the Dark Energy Survey (DES) year 3 (Y3) cosmosis chains.
 
