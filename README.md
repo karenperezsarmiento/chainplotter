@@ -18,7 +18,7 @@ pip install chainplotter
 
 Input cosmosis chain file into loadCosmosisMCSamples(filename) (Note: Must be done without '.txt')
 loadCosmosisMCSamples.mc_samples is an object of type getdist.MCSamples that then can be plotted with getdist.
-You can download the `example_data/chain_3x2pt_wcdm_SR_maglim` file in this repository to test:
+You can download the `example_data/chain_3x2pt_wcdm_SR_maglim.txt` file in this repository to test:
 
 ```
 from chainplotter import cosmosis_getdist
