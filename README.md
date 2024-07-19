@@ -1,15 +1,17 @@
-## Chainplotter
+# Chainplotter
+
+[![A rectangular badge, half black half purple containing the text made at Code Astro](https://img.shields.io/badge/Made%20at-Code/Astro-blueviolet.svg)](https://semaphorep.github.io/codeastro/)
 
 Cosmosis chains are incompatible with plotting tool getdist. Chainplotter takes cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist. Chainplotter currently may only work with the Dark Energy Survey (DES) year 3 (Y3) cosmosis chains.
 
-# How to Install: 
+## How to Install: 
 
 ```
 pip install chainplotter
 
 ```
 
-# How to Use: 
+## How to Use: 
 
 Input cosmosis chain file into loadCosmosisMCSamples(filename) (Note: Must be done without '.txt')
 loadCosmosisMCSamples.mc_samples is an object of type getdist.MCSamples that then can be plotted with getdist.
