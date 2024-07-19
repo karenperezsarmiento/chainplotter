@@ -8,13 +8,13 @@ class loadCosmosisMCSamples:
     """Loads cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist.
 
     Attributes:
-        chainfile (str): File name of cosmosis output chains.
+        chainfile (`str`): File name of cosmosis output chains.
         metadata (:obj:`list` of :obj:`str`): Metadata from cosmosis file.
         columnnames (:obj:`np.array` of :obj:`str`): List of columns names (first line in cosmosis metadata)
-        sampler_type (str): Sampler used to generate chains. Currently only supports nested sampling.
+        sampler_type (`str`): Sampler used to generate chains. Currently only supports nested sampling.
         chains (:obj:`np.array`): Array with the chains from cosmosis file
         indices (:obj:`np.array`): Indices of the columns that correspond to the loglikelihood, weights and sampled variables.
-        paramnames (:obj:`np.array of :obj:`str`): Array of the parameter names.
+        paramnames (:obj:`np.array` of :obj:`str`): Array of the parameter names.
         samples (:obj:`np.array`): Array with the sampled parameters from the chains.
         loglikes (:obj:`np.array`): Array with the log likelihood from the chains.
         weights (:obj:`np.array`): Array with the weights.
@@ -25,7 +25,7 @@ class loadCosmosisMCSamples:
         """ Initializes the loadCosmosisMCSamples class
 
         Args:
-            filename (str): File name of cosmosis chains (must not contain`.txt`).
+            filename (`str`): File name of cosmosis chains (must not contain`.txt`).
 
         """
         if filename == None:
@@ -78,24 +78,42 @@ class loadCosmosisMCSamples:
         return index_log,index_weight,index_samples
     
     def get_samples(self):
+        """ Gets columns of the chains that correspon to the variables being sampled.
+        
+        """
         self.samples = self.chains[:, self.index_samples]
 
     def get_chains(self):
+        """ Gets chains from the cosmosis file. 
+        
+        """
         chains = np.loadtxt(self.chainfile,comments="#")
         self.chains = chains
 
     def get_sampler_type(self):
+        """ Sampler type from the cosmosis metadata. Only supports 'nested' as of now.
+        
+        """
         for i in self.metadata:
             if "polychord" in i:
                 self.sampler_type = "nested"
 
     def get_weights(self):
+        """ Gets the weights column from chains.
+        
+        """
         self.weights = np.array(self.chains[:,self.index_weight]).flatten()
     
     def get_loglikes(self):
+        """ Gets the log likelihood column from chains.
+        
+        """
         self.log = np.array(self.chains[:,self.index_log]).flatten()
         
     def get_paramnames(self):
+        """ Gets parameter names from metadata.
+        
+        """
         self.paramnames = self.colnames[self.index_samples]
     
     def get_labels(self):
@@ -130,6 +148,9 @@ class loadCosmosisMCSamples:
         return self.labels,self.param_cat_dict,self.names 
 
     def _get_ranges_chunk(self):
+        """ Helper function that gets lines from the metadata which has ranges of the parameters.
+        
+        """
         for i,s in enumerate(self.metadata):
             if "START_OF_VALUES_INI" in s:
                 start_of_ranges = i
@@ -139,6 +160,9 @@ class loadCosmosisMCSamples:
         return ranges_chunk
     
     def _get_cat_chunks(self):
+        """ Helper function that splits the ranges chunk into the categories of parameters and puts the range chunks into a dictionary.
+        
+        """
         ranges_chunk = self._get_ranges_chunk()
         unique_cats = self.param_cat_dict.keys()
         cat_sec = []
@@ -155,6 +179,9 @@ class loadCosmosisMCSamples:
         return cat_chunks
 
     def get_ranges(self):
+        """ Gets the minimum and maximum values of the parameters and puts them into a dictionary.
+        
+        """
         cat_chunks = self._get_cat_chunks()
         ranges_dict = {}
         for i in cat_chunks.keys():
@@ -184,6 +211,7 @@ class loadCosmosisMCSamples:
         return self.ranges
 
     def make_MC_samples(self):
+        """ Creates getdisk.mcsamples object with the samples, weights, log likelihoods, parameter names, parameters ranges, and parameter labels from the cosmosis file."""
         self.mc_samples = MCSamples(samples=self.samples, weights=self.weights,
                            loglikes=-2.*self.log,
                            sampler=self.sampler_type, names=self.paramnames,
@@ -191,7 +219,3 @@ class loadCosmosisMCSamples:
                            ignore_rows=0)
                            #settings=settings)
         return self.mc_samples
-
-
-    #samples = MCSamples
-    #return #samples

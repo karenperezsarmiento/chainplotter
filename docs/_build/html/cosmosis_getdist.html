@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmosis Getdist Wrapper &mdash; chainplotter v1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to chainplotter’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            chainplotter
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cosmosis Getdist Wrapper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.chainfile"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.chainfile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.metadata"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.columnnames"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.columnnames</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.sampler_type"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.sampler_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.chains"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.chains</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.indices"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.indices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.paramnames"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.paramnames</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.samples"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.samples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.loglikes"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.loglikes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.weights"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.weights</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.labels"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.labels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_chains"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_chains()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_columnnames"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_columnnames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_indices"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_labels"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_loglikes"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_loglikes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_metadata"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_paramnames"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_paramnames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_ranges"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_ranges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_sampler_type"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_sampler_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_samples"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_samples()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.get_weights"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.get_weights()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosmosis_getdist.loadCosmosisMCSamples.make_MC_samples"><code class="docutils literal notranslate"><span class="pre">loadCosmosisMCSamples.make_MC_samples()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">chainplotter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cosmosis Getdist Wrapper</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cosmosis_getdist.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cosmosis-getdist-wrapper">
+<span id="cosmosis-getdist"></span><h1>Cosmosis Getdist Wrapper<a class="headerlink" href="#cosmosis-getdist-wrapper" title="Permalink to this heading"></a></h1>
+<p>Class to load Cosmosis chains and return getdist.mcsamples object.</p>
+<span class="target" id="module-cosmosis_getdist"></span><dl class="py class">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cosmosis_getdist.</span></span><span class="sig-name descname"><span class="pre">loadCosmosisMCSamples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples" title="Permalink to this definition"></a></dt>
+<dd><p>Loads cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.chainfile">
+<span class="sig-name descname"><span class="pre">chainfile</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.chainfile" title="Permalink to this definition"></a></dt>
+<dd><p>File name of cosmosis output chains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata from cosmosis file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.columnnames">
+<span class="sig-name descname"><span class="pre">columnnames</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.columnnames" title="Permalink to this definition"></a></dt>
+<dd><p>List of columns names (first line in cosmosis metadata)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.sampler_type">
+<span class="sig-name descname"><span class="pre">sampler_type</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.sampler_type" title="Permalink to this definition"></a></dt>
+<dd><p>Sampler used to generate chains. Currently only supports nested sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.chains">
+<span class="sig-name descname"><span class="pre">chains</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.chains" title="Permalink to this definition"></a></dt>
+<dd><p>Array with the chains from cosmosis file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.indices">
+<span class="sig-name descname"><span class="pre">indices</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.indices" title="Permalink to this definition"></a></dt>
+<dd><p>Indices of the columns that correspond to the loglikelihood, weights and sampled variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.paramnames">
+<span class="sig-name descname"><span class="pre">paramnames</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.paramnames" title="Permalink to this definition"></a></dt>
+<dd><p>Array of the parameter names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.samples">
+<span class="sig-name descname"><span class="pre">samples</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.samples" title="Permalink to this definition"></a></dt>
+<dd><p>Array with the sampled parameters from the chains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.loglikes">
+<span class="sig-name descname"><span class="pre">loglikes</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.loglikes" title="Permalink to this definition"></a></dt>
+<dd><p>Array with the log likelihood from the chains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.weights">
+<span class="sig-name descname"><span class="pre">weights</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.weights" title="Permalink to this definition"></a></dt>
+<dd><p>Array with the weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.array</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.labels" title="Permalink to this definition"></a></dt>
+<dd><p>List of the labels for the parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ranges</span> <span class="pre">(</span></span></dt>
+<dd><p>obj: <cite>dict</cite>): Dictionary for each parameters and its corresponding minimum and maximum values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_chains">
+<span class="sig-name descname"><span class="pre">get_chains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_chains" title="Permalink to this definition"></a></dt>
+<dd><p>Gets chains from the cosmosis file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_columnnames">
+<span class="sig-name descname"><span class="pre">get_columnnames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_columnnames" title="Permalink to this definition"></a></dt>
+<dd><p>Takes the first element in the metadata list, containing the column names.
+Then, the parameters are split by tabs, returning an array of the column names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_indices">
+<span class="sig-name descname"><span class="pre">get_indices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_indices" title="Permalink to this definition"></a></dt>
+<dd><p>Locates the index of “post” and “weight” elements in the column names array in order to delete them from the array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_labels">
+<span class="sig-name descname"><span class="pre">get_labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_labels" title="Permalink to this definition"></a></dt>
+<dd><p>Obtains labels and categories of variables from the parameter names list,
+creating lists for the labels and categories themselves. Unnecessary variables
+are also removed from both.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_loglikes">
+<span class="sig-name descname"><span class="pre">get_loglikes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_loglikes" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the log likelihood column from chains.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Opens user inputted file and removes lines starting with ‘#’, returning each line as an element in a list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_paramnames">
+<span class="sig-name descname"><span class="pre">get_paramnames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_paramnames" title="Permalink to this definition"></a></dt>
+<dd><p>Gets parameter names from metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_ranges">
+<span class="sig-name descname"><span class="pre">get_ranges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_ranges" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the minimum and maximum values of the parameters and puts them into a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_sampler_type">
+<span class="sig-name descname"><span class="pre">get_sampler_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_sampler_type" title="Permalink to this definition"></a></dt>
+<dd><p>Sampler type from the cosmosis metadata. Only supports ‘nested’ as of now.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_samples">
+<span class="sig-name descname"><span class="pre">get_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Gets columns of the chains that correspon to the variables being sampled.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.get_weights">
+<span class="sig-name descname"><span class="pre">get_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.get_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the weights column from chains.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cosmosis_getdist.loadCosmosisMCSamples.make_MC_samples">
+<span class="sig-name descname"><span class="pre">make_MC_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cosmosis_getdist.loadCosmosisMCSamples.make_MC_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Creates getdisk.mcsamples object with the samples, weights, log likelihoods, parameter names, parameters ranges, and parameter labels from the cosmosis file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to chainplotter’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Zoe Juneau, Karen Perez Sarmiento.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
