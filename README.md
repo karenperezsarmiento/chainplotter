@@ -5,7 +5,7 @@
 )](https://chainplotter.readthedocs.io/en/latest/)
 [![Rectangular badge for the pypy installation site](https://img.shields.io/pypi/v/chainplotter)](https://pypi.org/project/chainplotter/)
 
-Cosmosis chains are incompatible with plotting tool getdist. Chainplotter takes cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist. Chainplotter currently may only work with the Dark Energy Survey (DES) year 3 (Y3) cosmosis chains.
+Cosmosis chains are incompatible with the plotting tool getdist. Chainplotter takes cosmosis output chains and returns a getdist.MCSamples object that can be plotted using getdist. Chainplotter currently may only work with the Dark Energy Survey (DES) year 3 (Y3) cosmosis chains.
 
 ## How to Install: 
 
@@ -26,5 +26,6 @@ samples = cosmosis_getdist.loadCosmosisMCSamples("../example_data/chain_3x2pt_wc
 g = plots.get_subplot_plotter()
 g.triangle_plot(samples.mc_samples)
 ```
-Pypy nstallation [here](https://pypi.org/project/chainplotter/)
-See detailed documentation [here](https://chainplotter.readthedocs.io/en/latest/)
+PyPI installation [here](https://pypi.org/project/chainplotter/).
+
+See detailed documentation [here](https://chainplotter.readthedocs.io/en/latest/).
