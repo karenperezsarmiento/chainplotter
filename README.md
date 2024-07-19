@@ -11,7 +11,6 @@ Cosmosis chains are incompatible with plotting tool getdist. Chainplotter takes 
 
 ```
 pip install chainplotter
-
 ```
 
 ## How to Use: 
@@ -26,7 +25,6 @@ from getdist import plots
 samples = cosmosis_getdist.loadCosmosisMCSamples("../example_data/chain_3x2pt_wcdm_SR_maglim")
 g = plots.get_subplot_plotter()
 g.triangle_plot(samples.mc_samples)
-
 ```
-See detailed documentation here:
-https://chainplotter.readthedocs.io/en/latest/
+Pypy nstallation [here](https://pypi.org/project/chainplotter/)
+See detailed documentation [here](https://chainplotter.readthedocs.io/en/latest/)
